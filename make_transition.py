@@ -42,28 +42,46 @@ class ImageTransision():
             logger.info("{} saved".format(filename))
 
 
-def gen_transition():
-    filename0 = "data/picture_trans_0.jpeg"
-    filename1 = "data/picture_trans_1.jpeg"
-
+def do_gen_transition(filename0, filename1, dir_render, debug=False):
     img0 = cv2.imread(filename0, cv2.IMREAD_COLOR)
     img1 = cv2.imread(filename1, cv2.IMREAD_COLOR)
 
     dsize = (img0.shape[1], img0.shape[0])
+    logger.info("dsize aligned to {}".format(dsize))
+    if dsize[0] < 200:
+        dsize = (dsize[0]*2, dsize[1]*2)
+        logger.info("dsize enlarged to {}".format(dsize))
+
     img0 = cv2.resize(img0, dsize)
     img1 = cv2.resize(img1, dsize)
 
     logger.info(img0.shape)
     logger.info(img1.shape)
 
-    PlotHelper.plot_imgs([ImgHelper.ipc_white_balance_color(img0), ImgHelper.ipc_white_balance_color(img1)])
+    if debug:
+        PlotHelper.plot_imgs([ImgHelper.ipc_white_balance_color(img0), ImgHelper.ipc_white_balance_color(img1)])
 
     it = ImageTransision(img0, img1)
-    it.make_transfer("_gen_render_it0")
+    it.make_transfer(dir_render)
+
+def gen_transition0():
+    filename0 = "data/picture_trans_00.jpeg"
+    filename1 = "data/picture_trans_01.jpeg"
+    dir_render = "_gen_render_it0"
+
+    do_gen_transition(filename0, filename1, dir_render)
+
+def gen_transition1():
+    filename0 = "data/picture_trans_10.tiff"
+    filename1 = "data/picture_trans_11.tiff"
+    dir_render = "_gen_render_it1"
+
+    do_gen_transition(filename0, filename1, dir_render)
 
 if __name__ == '__main__':
     import coloredlogs
     logging.getLogger().setLevel(logging.INFO)
     coloredlogs.install(fmt='%(asctime)s %(levelname)s %(message)s @%(name)s')
 
-    gen_transition()
+    #gen_transition0()
+    gen_transition1()

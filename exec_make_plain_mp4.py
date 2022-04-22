@@ -4,7 +4,8 @@ import logging
 logger = logging.getLogger(__name__)
 
 #IMGS_FOLDER = "_gen_render_m00c000"
-IMGS_FOLDER = "_gen_render_it0"
+#IMGS_FOLDER = "_gen_render_it0"
+IMGS_FOLDER = "_gen_render_it1"
 
 def gen_mp4():
     import os
