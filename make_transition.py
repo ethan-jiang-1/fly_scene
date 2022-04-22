@@ -49,8 +49,7 @@ def gen_transition():
     img0 = cv2.imread(filename0, cv2.IMREAD_COLOR)
     img1 = cv2.imread(filename1, cv2.IMREAD_COLOR)
 
-    dsize = (640, 640)
-
+    dsize = (img0.shape[1], img0.shape[0])
     img0 = cv2.resize(img0, dsize)
     img1 = cv2.resize(img1, dsize)
 
